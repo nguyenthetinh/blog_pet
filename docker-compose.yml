@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+  watch:
+    container_name: watch-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+      - 9229:9229
+    command: npm run start:dev
+    env_file:
+      - .env
+    networks:
+      - webnet
+    depends_on:
+      - redis
+      - postgres
+  redis:
+    container_name: redis
+    image: redis:5
+    networks:
+      - webnet
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/data/postgres
+    env_file:
+      - docker.env
+    networks:
+      - webnet
+  pgadmin:
+    links:
+    - postgres:postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin:/root/.pgadmin
+    env_file:
+      - docker.env
+    networks:
+      - webnet
+
+networks:
+  webnet:
+volumes:
+  postgres:
+  pgadmin:
