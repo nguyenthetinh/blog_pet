@@ -2,13 +2,16 @@ FROM node:14-alpine as builder
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json ./
+COPY package-lock.json ./
 
-RUN npm install glob rimraf
+RUN npm install
 
-RUN npm install --only=development
+# Copy important files - Add ormconfig.ts here if using Typeorm
+COPY .eslintrc.js nest-cli.json tsconfig.json tsconfig.build.json ./
 
-COPY . .
+# Copy env
+COPY docker.env /usr/src/app
 
 RUN npm run build
 

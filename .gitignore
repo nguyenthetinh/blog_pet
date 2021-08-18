@@ -15,6 +15,9 @@ lerna-debug.log*
 /.env
 /docker.env
 
+#docker
+/.dockerignore
+
 # OS
 .DS_Store
 
