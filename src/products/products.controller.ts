@@ -1,7 +1,10 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, UseGuards, UseFilters } from '@nestjs/common';
 import { ProductsService } from './products.service'
 import { Product } from './product.entity'
 import JwtAuthenticationGuard from 'src/auth/jwt-authentication.guard';
+import { ExceptionsLoggerFilter } from 'src/utils/exceptionsLogger.filter';
+import { FindOneParams } from 'src/utils/findOneParams';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -13,8 +16,9 @@ export class ProductsController {
   }
 
   @Get(':id')
-  get(@Param() params) {
-    return this.productsService.findOne(params.id)
+  @UseFilters(ExceptionsLoggerFilter)
+  get(@Param() {id}: FindOneParams) {
+    return this.productsService.findOne(Number(id))
   }
 
   @Post()
@@ -26,7 +30,7 @@ export class ProductsController {
   @Put(':id')
   update(
     @Param() params,
-    @Body() product: Product,
+    @Body() product: UpdateProductDto,
   ) {
     return this.productsService.update(params.id, product)
   }
