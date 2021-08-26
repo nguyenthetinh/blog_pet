@@ -18,9 +18,5 @@ export class RegisterDto {
 
   @IsString()
   @IsNotEmpty()
-  address: string;
-
-  @IsString()
-  @IsNotEmpty()
   sex: string;
 }
