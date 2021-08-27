@@ -7,7 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { config } from 'aws-sdk'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {logger: ['error', 'warn', 'debug', 'log', 'verbose']});
   const { httpAdapter } = app.get(HttpAdapterHost)
   app.useGlobalFilters(new ExceptionsLoggerFilter(httpAdapter))
   app.useGlobalPipes(new ValidationPipe())

@@ -21,6 +21,7 @@ export class UsersController {
   @Delete('avatar')
   @UseGuards(JwtAuthenticationGuard)
   async removeFile(@Req() request: RequestWithUser){
-    return this.userService.removeAvatar(request.user.id)
+    await this.userService.removeAvatar(request.user.id)
+    return { "massage":"remove avatar success"}
   }
 }

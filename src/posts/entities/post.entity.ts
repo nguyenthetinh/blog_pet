@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, Index } from "typeorm";
 import { User } from "src/users/entities/user.entity";
 import { Category } from "../../categories/entities/category.entity"
 
@@ -13,6 +13,7 @@ export class Post {
   @Column()
   public title: string;
 
+  @Index('post_authorId_index_x1')
   @ManyToOne(() => User, (author: User) => author.posts)
   public author: User;
 

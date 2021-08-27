@@ -32,7 +32,6 @@ export class ProductsService {
   async update(id: number, product: UpdateProductDto){
     await this.productRepo.update(id, product);
     const updateProduct = await this.productRepo.findOne(id)
-    console.log(updateProduct)
     if (updateProduct) {
       return updateProduct
     }
