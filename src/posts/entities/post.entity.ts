@@ -7,8 +7,8 @@ export class Post {
   @PrimaryGeneratedColumn()
   public id?: number;
 
-  @Column()
-  public content: string;
+  @Column('text', {array: true})
+  public paragraphs: string[];
 
   @Column()
   public title: string;

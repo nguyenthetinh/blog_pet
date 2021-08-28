@@ -6,6 +6,7 @@ import { Post } from './entities/post.entity';
 import { Repository } from 'typeorm';
 import { PostNotFoundException } from './exception/postNotFund.exception';
 import { User } from 'src/users/entities/user.entity';
+import { paginateResponse } from 'src/utils/types/paginateResponse';
 
 @Injectable()
 export class PostsService {
@@ -14,8 +15,18 @@ export class PostsService {
     private readonly postRepository: Repository<Post>
   ){}
 
-  getAllPosts(){
-    return this.postRepository.find({ relations: ['author', 'categories'] })
+  async getAllPosts(page?: number, limit?: number){
+    page = page || 1;
+    limit = limit || 10
+    const skip = (page - 1) * limit ;
+
+    const data = await this.postRepository.findAndCount({ 
+      relations: ['author', 'categories'],
+      order: {id: "ASC"},
+      skip: skip,
+      take: limit
+    })
+    return paginateResponse(data, Number(page), Number(limit))
   }
 
   async getPostId(id: number){

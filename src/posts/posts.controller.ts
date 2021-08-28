@@ -1,18 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { FindOneParams } from 'src/utils/findOneParams';
 import { CreatePostDto } from './dto/create-post.dto';
 import JwtAuthenticationGuard from 'src/auth/jwt-authentication.guard';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { RequestWithUser } from 'src/auth/requestWithUser.interface';
+import { PaginationParams } from 'src/utils/types/paginationParams';
 
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get()
-  getAllPost(){
-    return this.postsService.getAllPosts()
+  getAllPost( @Query() {page, limit}: PaginationParams){
+    return this.postsService.getAllPosts(page, limit)
   }
 
   @Get(':id')
