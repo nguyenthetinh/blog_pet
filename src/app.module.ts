@@ -11,9 +11,15 @@ import { PostsModule } from './posts/posts.module';
 import { CategoriesModule } from './categories/categories.module';
 import { FilesModule } from './files/files.module';
 import { CommentsModule } from './comments/comments.module';
+import { EmailModule } from './email/email.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { EmailSchedulingModule } from './emailScheduling/emailScheduling.module';
+
 
 @Module({
-  imports: [ProductModule,
+  imports: [
+    ScheduleModule.forRoot(),
+    ProductModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
@@ -32,6 +38,9 @@ import { CommentsModule } from './comments/comments.module';
         JWT_REFRESH_TOKEN_EXPIRATION_TIME: Joi.string().required(),
         REDIS_HOST: Joi.string().required(),
         REDIS_PORT: Joi.number().required(),
+        EMAIL_SERVICE: Joi.string().required(),
+        EMAIL_USER: Joi.string().required(),
+        EMAIL_PASSWORD: Joi.string().required(),
       })
     }),
     DatabaseModule,
@@ -40,7 +49,9 @@ import { CommentsModule } from './comments/comments.module';
     PostsModule,
     CategoriesModule,
     FilesModule,
-    CommentsModule
+    CommentsModule,
+    EmailModule,
+    EmailSchedulingModule
   ],
   controllers: [],
   providers: [
