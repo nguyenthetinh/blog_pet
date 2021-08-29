@@ -21,7 +21,7 @@ export class PostsService {
     const skip = (page - 1) * limit ;
 
     const data = await this.postRepository.findAndCount({ 
-      relations: ['author', 'categories'],
+      relations: ['author', 'categories', 'comments'],
       order: {id: "ASC"},
       skip: skip,
       take: limit

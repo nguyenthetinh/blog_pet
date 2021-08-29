@@ -10,6 +10,7 @@ import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
 import { PostsModule } from './posts/posts.module';
 import { CategoriesModule } from './categories/categories.module';
 import { FilesModule } from './files/files.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [ProductModule,
@@ -36,7 +37,8 @@ import { FilesModule } from './files/files.module';
     UserModule,
     PostsModule,
     CategoriesModule,
-    FilesModule
+    FilesModule,
+    CommentsModule
   ],
   controllers: [],
   providers: [
