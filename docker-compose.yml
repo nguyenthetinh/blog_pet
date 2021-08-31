@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-  watch:
-    container_name: watch-api
+  blog_pet:
+    container_name: blog_pet
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,6 +15,7 @@ services:
     command: npm run start:dev
     env_file:
       - .env
+    tty: true
     networks:
       - webnet
     depends_on:

@@ -80,4 +80,12 @@ export class AuthService {
     ];
   }
   
+  public getUserFromAuthenticationToken(token: string){
+    const playload: TokenPayload = this.jwtService.verify(token, {
+      secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET')
+    })
+    if(playload.userId){
+      return this.userService.getById(playload.userId)
+    }
+  }
 }

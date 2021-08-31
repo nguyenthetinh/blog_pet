@@ -17,6 +17,7 @@ import { JwtRefreshTokenStrategy } from './jwt-refresh-token.strategy';
     JwtModule.register({}),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy, JwtRefreshTokenStrategy],
-  controllers: [AuthController]
+  controllers: [AuthController],
+  exports: [AuthService]
 })
 export class AuthModule {}
