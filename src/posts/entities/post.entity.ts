@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, Index, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, Index, OneToMany, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { User } from "src/users/entities/user.entity";
 import { Category } from "../../categories/entities/category.entity"
 import { Comment } from "src/comments/entities/comment.entity";
@@ -24,4 +24,10 @@ export class Post {
 
   @OneToMany(() => Comment, (comment: Comment) => comment.post)
   public comments: Comment[]
+
+  @CreateDateColumn({ type: 'timestamp' })
+  public createdDate: Date;
+ 
+  @UpdateDateColumn({ type: 'timestamp' })
+  public updatedDate: Date;
 }
