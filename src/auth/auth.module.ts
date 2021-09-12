@@ -8,6 +8,9 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt'
 import { JwtStrategy } from './jwt.strategy';
 import { JwtRefreshTokenStrategy } from './jwt-refresh-token.strategy';
+import { TwoFactorAuthenticationService } from './twoFactor/twoFactorAuthentication.service';
+import { TwoFactorAuthenticationController } from './twoFactor/twoFactorAuthentication.controller';
+import { JwtTwoFactorStrategy } from './jwt-two-factor.strategy';
 
 @Module({
   imports: [
@@ -16,8 +19,8 @@ import { JwtRefreshTokenStrategy } from './jwt-refresh-token.strategy';
     ConfigModule,
     JwtModule.register({}),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, JwtRefreshTokenStrategy],
-  controllers: [AuthController],
+  providers: [AuthService, LocalStrategy, JwtStrategy, JwtRefreshTokenStrategy, TwoFactorAuthenticationService, JwtTwoFactorStrategy],
+  controllers: [AuthController, TwoFactorAuthenticationController],
   exports: [AuthService]
 })
 export class AuthModule {}

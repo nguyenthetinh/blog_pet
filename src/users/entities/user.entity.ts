@@ -32,6 +32,12 @@ export class User {
   @Exclude()
   public currentHashedRefreshToken?: string
 
+  @Column({ nullable: true })
+  public twoFactorAuthenticationSecret?: string
+
+  @Column({ default: false })
+  public isTwoFactorAuthenticationEnabled: boolean
+
   @OneToOne(() => Address, {
     eager: true,
     cascade: true

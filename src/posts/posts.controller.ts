@@ -7,6 +7,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { RequestWithUser } from 'src/auth/requestWithUser.interface';
 import { PaginationParams } from 'src/utils/types/paginationParams';
 import { GET_POSTS_CACHE_KEY } from './postsCacheKey.constant';
+import JwtTwoFactorGuard from 'src/auth/jwt-two-factor.guard';
 
 @Controller('posts')
 export class PostsController {
@@ -26,7 +27,7 @@ export class PostsController {
   }
 
   @Post()
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtTwoFactorGuard)
   createPost(@Body() post: CreatePostDto, @Req() req: RequestWithUser){
     return this.postsService.create(post, req.user)
   }

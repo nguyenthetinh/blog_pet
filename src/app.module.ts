@@ -42,6 +42,7 @@ import { ChatModule } from './chat/chat.module';
         EMAIL_SERVICE: Joi.string().required(),
         EMAIL_USER: Joi.string().required(),
         EMAIL_PASSWORD: Joi.string().required(),
+        TWO_FACTOR_AUTHENTICATION_APP_NAME: Joi.string().required(),
       })
     }),
     DatabaseModule,

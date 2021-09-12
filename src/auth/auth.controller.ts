@@ -39,6 +39,9 @@ export class AuthController {
     } = this.authService.getCookieWithJwtRefreshToken(user.id)
     await this.userServie.setCurrentRefreshToken(refreshToken, user.id)
     request.res.setHeader('Set-Cookie', [accessTokenCookie, refreshTokenCookie]);
+    if (user.isTwoFactorAuthenticationEnabled) {
+      return { "message":"you need to verify the code" };
+    }
     const data = {
       "message":"success",
       user
