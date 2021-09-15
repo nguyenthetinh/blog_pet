@@ -6,6 +6,7 @@ import { RequestWithUser } from './requestWithUser.interface';
 import JwtAuthenticationGuard from './jwt-authentication.guard';
 import { UserService } from 'src/users/user.service';
 import JwtRefreshGuard from './jwt-refresh.guard';
+import { EmailConfirmationService } from 'src/emailConfirmation/emailConfirmation.service';
 
 @Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -13,6 +14,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userServie: UserService,
+    private readonly emailConfirmationService: EmailConfirmationService,
   ){}
 
   @UseGuards(JwtAuthenticationGuard)
@@ -24,7 +26,9 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() registrationData: RegisterDto){
-    return this.authService.register(registrationData);
+    const user = this.authService.register(registrationData);
+    await this.emailConfirmationService.sendVerificationLink(registrationData.email)
+    return user
   }
 
   @HttpCode(200)

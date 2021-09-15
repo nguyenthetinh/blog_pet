@@ -38,6 +38,9 @@ export class User {
   @Column({ default: false })
   public isTwoFactorAuthenticationEnabled: boolean
 
+  @Column({ default: false })
+  public isEmailConfirmed: boolean;
+
   @OneToOne(() => Address, {
     eager: true,
     cascade: true

@@ -108,4 +108,10 @@ export class UserService {
       isTwoFactorAuthenticationEnabled: true,
     })
   }
+
+  async markEmailAsConfirmed(email: string){
+    return this.userRepository.update({email}, {
+      isEmailConfirmed: true
+    })
+  }
 }

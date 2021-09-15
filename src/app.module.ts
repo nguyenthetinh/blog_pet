@@ -15,6 +15,7 @@ import { EmailModule } from './email/email.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { EmailSchedulingModule } from './emailScheduling/emailScheduling.module';
 import { ChatModule } from './chat/chat.module';
+import { EmailConfirmationModule } from './emailConfirmation/emailConfirmation.module';
 
 
 @Module({
@@ -43,6 +44,9 @@ import { ChatModule } from './chat/chat.module';
         EMAIL_USER: Joi.string().required(),
         EMAIL_PASSWORD: Joi.string().required(),
         TWO_FACTOR_AUTHENTICATION_APP_NAME: Joi.string().required(),
+        JWT_VERIFICATION_TOKEN_SECRET: Joi.string().required(),
+        JWT_VERIFICATION_TOKEN_EXPIRATION_TIME: Joi.string().required(),
+        EMAIL_CONFIRMATION_URL: Joi.string().required(),
       })
     }),
     DatabaseModule,
@@ -54,7 +58,8 @@ import { ChatModule } from './chat/chat.module';
     CommentsModule,
     EmailModule,
     EmailSchedulingModule,
-    ChatModule
+    ChatModule,
+    EmailConfirmationModule
   ],
   controllers: [],
   providers: [

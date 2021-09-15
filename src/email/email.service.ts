@@ -20,6 +20,7 @@ export class EmailService {
   }
 
   sendMail(options: Mail.Options){
+    console.log("aa=", options)
     return this.nodemailerTransport.sendMail(options)
   }
 }
